@@ -44,35 +44,35 @@ public class FileReader {
 
 
 
-                demTongSoTu();
+        countTheTotalNumberOfWords();
 
 
         /** ---------------- PHẦN LIỆT KÊ TẦN SUẤT XUẤT HIỆN BAO NHIÊU TỪ  ---------------------- **/
 
 
-        lietKeTanSuatSoLanXuatHienCuaCacTu();
+        listsTheFrequencyOfWordsAppearing();
 
         /** ---------------- SẮP XẾP CÁC TỪ CÓ TẦN SUẤT NHIỀU NHẤT LÊN CÒN LẠI LÀ Ở ĐẰNG SAU ---------------------- **/
 
 
-        sapXepCacTuDuaVaoTanSuat();
+        arrangeWordsBasedOnFrequency();
 
         /** ---------------- PHẦN TÌM KIẾM ---------------------- **/
 
 
-        timKiemBatDauBangChuCaiDauTien();
+        searchBeginningWithTheFirstWords();
 
 
         writer.close();   // close để kết thúc quá trình ghi file
     }
 
-    private static void demTongSoTu() throws IOException {
+    private static void countTheTotalNumberOfWords() throws IOException {
 
         System.out.println("+ Tổng số từ là: " + words.length);
         writer.write(" + Số từ là: " + words.length + "\n" + "\n");  // lấy ra tổng số từ rồi ghi vào file mới
     }
 
-    private static void timKiemBatDauBangChuCaiDauTien() throws IOException {
+    private static void searchBeginningWithTheFirstWords() throws IOException {
         Scanner scanner1 = new Scanner(System.in);
         System.out.println("\n " + "Tìm kiếm các từ xuất hiện có chữ cái đó: ");
         String input = scanner1.nextLine();
@@ -88,7 +88,7 @@ public class FileReader {
 
     }
 
-    private static void sapXepCacTuDuaVaoTanSuat() throws IOException {
+    private static void arrangeWordsBasedOnFrequency() throws IOException {
         list = new ArrayList<Map.Entry<String, Integer>>(wordMap.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {    // dùng sort để sắp xếp truyền vào List cần sắp xếp
             @Override
@@ -108,7 +108,7 @@ public class FileReader {
 
     }
 
-    public static void lietKeTanSuatSoLanXuatHienCuaCacTu() throws IOException {
+    public static void listsTheFrequencyOfWordsAppearing() throws IOException {
 
         writer.write(" + Liệt kê số lần xuất hiện của các từ: " + "\n" + "\n");
 
