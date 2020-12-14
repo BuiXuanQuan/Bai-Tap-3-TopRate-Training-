@@ -20,6 +20,7 @@ public class FileReader {
     public static void main(String[] args) throws IOException {
 
         String urlRead = "C:\\Users\\ABC\\IdeaProjects\\BAI TAP 3\\BaiTap.txt";
+
         File file = new File(urlRead);  // đọc từ file
         Scanner scan = new Scanner(file);
 
@@ -35,7 +36,8 @@ public class FileReader {
         words = fileContent.split(" ");
 
         String urlWrite = "C:\\Users\\ABC\\IdeaProjects\\BAI TAP 3\\KetQua.txt";
-        writer = new FileWriter(urlWrite);
+
+        writer = new FileWriter(urlWrite); // ghi ra file mới
 
 
 
