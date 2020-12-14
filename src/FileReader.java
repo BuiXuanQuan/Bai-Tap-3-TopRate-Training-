@@ -91,7 +91,7 @@ public class FileReader {
     }
 
     private static void arrangeWordsBasedOnFrequency() throws IOException {
-        list = new ArrayList<Map.Entry<String, Integer>>(wordMap.entrySet());
+        list = new ArrayList<Map.Entry<String, Integer>>(wordMap.entrySet());  //phương thức entrySet( ) được khai báo bởi Map Interface trả về một Set chứa các Map Entry
         Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {    // dùng sort để sắp xếp truyền vào List cần sắp xếp
             @Override
             public int compare(Map.Entry<String, Integer> stringIntegerEntry, Map.Entry<String, Integer> t1) {
