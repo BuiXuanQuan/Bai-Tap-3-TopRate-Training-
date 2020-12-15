@@ -7,9 +7,18 @@ import java.util.*;
 
 public class FileReader {
 
+    // Tránh trường hợp vào các dấu sau
     public static final char SPACE = ' ';
     public static final char TAB = '\t';
     public static final char BREAK_LINE = '\n';
+    public static final char DOT = '.';
+    public static final char COMMA = ',';
+    public static final char QUESTION_MARK = '?';
+    public static final char COLON = ':';
+    public static final char MARK = '"';
+    public static final char DASH = '-';
+    public static final char AMPERSAND = '&';
+    public static final char BRACKET ='(';
 
     static String[] words; // mang luu cac tu
     static FileWriter writer; // ghi ra file
@@ -133,8 +142,16 @@ public class FileReader {
         int size = input.length();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < size; i++) {
+
+            //  nếu k phải mấy cái dấu cách hay tab hay breakline,... thì build 1 từ
             if (input.charAt(i) != SPACE && input.charAt(i) != TAB
-                    && input.charAt(i) != BREAK_LINE) {      //  nếu k phải mấy cái dấu cách hay tab hay breakline thì build 1 từ
+                    && input.charAt(i) != BREAK_LINE &&
+                    input.charAt(i) != DOT && input.charAt(i) != COMMA &&
+            input.charAt(i) != QUESTION_MARK && input.charAt(i) != COLON
+                    && input.charAt(i) != MARK && input.charAt(i) != DASH && input.charAt(i) != AMPERSAND
+                    && input.charAt(i) != BRACKET
+
+            )  {
                 // build một từ
                 sb.append(input.charAt(i));
             } else {
