@@ -95,7 +95,7 @@ public class FileReader {
         Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {    // dùng sort để sắp xếp truyền vào List cần sắp xếp
             @Override
             public int compare(Map.Entry<String, Integer> stringIntegerEntry, Map.Entry<String, Integer> t1) {
-                return (t1.getValue().compareTo(stringIntegerEntry.getValue()));  // so sánh số có tần suất lớn hơn sẽ được xếp lên trên
+                return (t1.getValue().compareTo(stringIntegerEntry.getValue()));  // so sánh các từ có tần suất xuất hiện nhiều hơn sẽ được xếp lên trên
                                                                                  // còn các từ có tần suất xuất hiện nhỏ hơn sẽ nằm ở phía sau
             }
         });
