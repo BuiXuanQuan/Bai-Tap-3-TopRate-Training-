@@ -25,25 +25,53 @@ public class FileReader {
     public static FileWriter writer; // ghi ra file
     public static Map<String, Integer> wordMap;
 
-    public static StringBuilder result;
+    public static StringBuilder result = new StringBuilder() ;
     public  static List<Map.Entry<String, Integer>> list ; // sử dụng list này trong trường hợp tìm kiếm
-    public  static String words="";
+    public  static String line;
+    public  static BufferedReader reader ;
+    public  static int countWord;
+    public  static  String[] wordList;
+
+
+
 
     public static void main(String[] args) throws IOException {
 
-        String urlRead = "C:\\Users\\ABC\\IdeaProjects\\BAI TAP 3\\BaiTap.txt";
-
-        File file = new File(urlRead);  // đọc từ file
-        Scanner scan = new Scanner(file);
 
 
-        result = new StringBuilder();
+        File file = new File("C:\\Users\\ABC\\IdeaProjects\\BAI TAP 3\\BaiTap.txt");
+        FileInputStream fileStream = new FileInputStream(file);
+        InputStreamReader input = new InputStreamReader(fileStream);
+        reader = new BufferedReader(input);
 
-        while (scan.hasNextLine()) {
 
-         result.append(scan.nextLine());  //nối thêm chuỗi được chỉ định vào cuối chuỗi đã cho với phương thức append() cua Stringbuilder.
+        // tạo biến đếm
+        countWord = 0;
+
+        int paragraphCount = 1;
 
 
+        // Đọc các dòng
+        // file cho đến khi  null thì trả về
+        while((line = reader.readLine()) != null)
+        {
+            if(line.equals(""))
+            {
+                paragraphCount++;  // đếm toạn
+            } else {
+
+
+                // \\s+ khoảng trắng
+                wordList = line.split("\\s+");
+
+                countWord += wordList.length;
+
+
+                // [!?.:]+ đoạn
+                String[] sentenceList = line.split("[!?.:]+");
+
+                result.append(line);
+            }
         }
 
 
@@ -51,6 +79,7 @@ public class FileReader {
         String urlWrite = "C:\\Users\\ABC\\IdeaProjects\\BAI TAP 3\\KetQua.txt";
 
         writer = new FileWriter(urlWrite); // ghi ra file mới
+
 
 
 
@@ -70,7 +99,7 @@ public class FileReader {
         /** ---------------- SẮP XẾP CÁC TỪ CÓ TẦN SUẤT NHIỀU NHẤT LÊN CÒN LẠI LÀ Ở ĐẰNG SAU ---------------------- **/
 
 
-        arrangeWordsBasedOnFrequency();
+        arrangeWordsBasedOnFrequency();   // sắp xếp ra  từ The lớn nhất khoảng 43000 từ
 
         /** ---------------- PHẦN TÌM KIẾM ---------------------- **/
 
@@ -78,23 +107,14 @@ public class FileReader {
         searchBeginningWithTheFirstWords();
 
 
-        writer.close();   // close để kết thúc quá trình ghi file
+        writer.close();   // close để kết thúc quá trình ghi ra file
     }
 
     private static void countTheTotalNumberOfWords() throws IOException {
 
-        StringBuilder sb = new StringBuilder();
 
 
-        for(String w :result.toString().split(" ") ){
-
-            sb.append(w +" ");
-        }
-        words=sb.toString();
-
-        System.out.println("Dem tong so tu : "  + words.length());
-        writer.write(words.length());
-
+        System.out.println("Total word count = " + countWord);
 
     }
 
@@ -116,7 +136,7 @@ public class FileReader {
 
     private static void arrangeWordsBasedOnFrequency() throws IOException {
         list = new ArrayList<Map.Entry<String, Integer>>(wordMap.entrySet());  //phương thức entrySet( ) được khai báo bởi Map Interface trả về một Set chứa các Map Entry
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {    // dùng sort để sắp xếp truyền vào List cần sắp xếp
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {    // dùng sort để sắp xếp, truyền vào List cần sắp xếp
             @Override
             public int compare(Map.Entry<String, Integer> stringIntegerEntry, Map.Entry<String, Integer> t1) {
                 return (t1.getValue().compareTo(stringIntegerEntry.getValue()));  // so sánh các từ có tần suất xuất hiện nhiều hơn sẽ được xếp lên trên
@@ -139,7 +159,7 @@ public class FileReader {
         writer.write(" + Liệt kê số lần xuất hiện của các từ: " + "\n" + "\n");
 
         System.out.println("+ Liệt kê số lần xuất hiện của các từ: ");
-         wordMap = countWords(result);   // truyền fileContent đã có vào countWords method ()
+         wordMap = countWords(result);   // truyền result đã có vào countWords method ()
         for (String key : wordMap.keySet()) {
             System.out.print(key + " " + wordMap.get(key) + "\n");
             writer.write("\t" + key + " -------- " + wordMap.get(key) + "\n");
@@ -149,6 +169,7 @@ public class FileReader {
 
 
     public static Map<String, Integer> countWords(StringBuilder input) {
+
         // khởi tạo wordMap
         Map<String, Integer> wordMap = new TreeMap<String, Integer>();
         if (input == null) {
