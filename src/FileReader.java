@@ -31,7 +31,7 @@ public class FileReader {
     public  static BufferedReader reader ;
     public  static int countWord;
     public  static  String[] wordList;
-
+    public  static String input;
 
 
 
@@ -121,10 +121,10 @@ public class FileReader {
     private static void searchBeginningWithTheFirstWords() throws IOException {
         Scanner scanner1 = new Scanner(System.in);
         System.out.println("\n " + "Tìm kiếm các từ xuất hiện có chữ cái đó: ");
-        String input = scanner1.nextLine();
+         input = scanner1.nextLine();
+
 
         writer.write("\n " + "+ Tìm kiếm các từ với chữ cái đầu tiên dựa vào xuất hiện của các từ: " + input + "\n");
-
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getKey().startsWith(input)) {  // tìm kiếm với Key so sánh với chữ cái ban đầu nhập vào từ input
                 System.out.println(list.get(i).getKey());
