@@ -20,11 +20,14 @@ public class FileReader {
     public static final char AMPERSAND = '&';
     public static final char BRACKET ='(';
 
-    static String[] words; // mang luu cac tu
-    static FileWriter writer; // ghi ra file
-    static Map<String, Integer> wordMap;
-    static String fileContent = "";
-    static List<Map.Entry<String, Integer>> list ; // sử dụng list này trong trường hợp tìm kiếm
+
+//    static String[] words; // mang luu cac tu
+    public static FileWriter writer; // ghi ra file
+    public static Map<String, Integer> wordMap;
+
+    public static StringBuilder result;
+    public  static List<Map.Entry<String, Integer>> list ; // sử dụng list này trong trường hợp tìm kiếm
+    public  static String words="";
 
     public static void main(String[] args) throws IOException {
 
@@ -34,15 +37,16 @@ public class FileReader {
         Scanner scan = new Scanner(file);
 
 
+        result = new StringBuilder();
 
         while (scan.hasNextLine()) {
 
-            fileContent = fileContent.concat(scan.nextLine());  //nối thêm chuỗi được chỉ định vào cuối chuỗi đã cho với phương thức concat().
+         result.append(scan.nextLine());  //nối thêm chuỗi được chỉ định vào cuối chuỗi đã cho với phương thức append() cua Stringbuilder.
 
 
         }
 
-        words = fileContent.split(" ");
+
 
         String urlWrite = "C:\\Users\\ABC\\IdeaProjects\\BAI TAP 3\\KetQua.txt";
 
@@ -79,8 +83,19 @@ public class FileReader {
 
     private static void countTheTotalNumberOfWords() throws IOException {
 
-        System.out.println("+ Tổng số từ là: " + words.length);
-        writer.write(" + Số từ là: " + words.length + "\n" + "\n");  // lấy ra tổng số từ rồi ghi vào file mới
+        StringBuilder sb = new StringBuilder();
+
+
+        for(String w :result.toString().split(" ") ){
+
+            sb.append(w +" ");
+        }
+        words=sb.toString();
+
+        System.out.println("Dem tong so tu : "  + words.length());
+        writer.write(words.length());
+
+
     }
 
     private static void searchBeginningWithTheFirstWords() throws IOException {
@@ -124,7 +139,7 @@ public class FileReader {
         writer.write(" + Liệt kê số lần xuất hiện của các từ: " + "\n" + "\n");
 
         System.out.println("+ Liệt kê số lần xuất hiện của các từ: ");
-         wordMap = countWords(fileContent);   // truyền fileContent đã có vào countWords method ()
+         wordMap = countWords(result);   // truyền fileContent đã có vào countWords method ()
         for (String key : wordMap.keySet()) {
             System.out.print(key + " " + wordMap.get(key) + "\n");
             writer.write("\t" + key + " -------- " + wordMap.get(key) + "\n");
@@ -133,7 +148,7 @@ public class FileReader {
     }
 
 
-    public static Map<String, Integer> countWords(String input) {
+    public static Map<String, Integer> countWords(StringBuilder input) {
         // khởi tạo wordMap
         Map<String, Integer> wordMap = new TreeMap<String, Integer>();
         if (input == null) {
